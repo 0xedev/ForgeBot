@@ -23,7 +23,11 @@ function ChatWindow() {
   const [displayName, setDisplayName] = useState<string | null>(null);
   const { connect, connectors } = useConnect();
   const { isConnected: isAccountConnected } = useAccount();
-  const lastCommand = useRef<{ fid: string | null; command: string; time: number }>({
+  const lastCommand = useRef<{
+    fid: string | null;
+    command: string;
+    time: number;
+  }>({
     fid: null,
     command: "",
     time: 0,
@@ -82,7 +86,11 @@ function ChatWindow() {
     }
   }, []);
 
-  const sendCommand = async (command: string, args?: string, isCallback: boolean = false) => {
+  const sendCommand = async (
+    command: string,
+    args?: string,
+    isCallback: boolean = false
+  ) => {
     const fid = sessionStorage.getItem("fid");
     const username = sessionStorage.getItem("username");
     const displayName = sessionStorage.getItem("displayName");
@@ -98,7 +106,22 @@ function ChatWindow() {
     }
     lastCommand.current = { fid, command, time: Date.now() };
 
-    console.log("sendCommand: fid =", fid, "username =", username, "displayName =", displayName, "command =", command, "args =", args, "isCallback =", isCallback, "currentAction =", currentAction.current);
+    console.log(
+      "sendCommand: fid =",
+      fid,
+      "username =",
+      username,
+      "displayName =",
+      displayName,
+      "command =",
+      command,
+      "args =",
+      args,
+      "isCallback =",
+      isCallback,
+      "currentAction =",
+      currentAction.current
+    );
 
     if (!fid) {
       setMessages([
@@ -134,28 +157,45 @@ function ChatWindow() {
         payload.command = command;
       }
 
-      const apiUrl = process.env.NODE_ENV === "production"
-        ? "https://forgeback-production.up.railway.app"
-        : "http://localhost:3000"; // Adjust port if needed
-      console.log("Sending request to:", `${apiUrl}${endpoint}`, "payload:", payload);
+      const apiUrl =
+        process.env.NODE_ENV === "production"
+          ? "https://backend-production-8781.up.railway.app"
+          : "http://localhost:3000";
+      console.log(
+        "Sending request to:",
+        `${apiUrl}${endpoint}`,
+        "payload:",
+        payload
+      );
       const response = await axios.post(`${apiUrl}${endpoint}`, payload, {
         withCredentials: true,
         headers: {
-          "Accept": "application/json",
+          Accept: "application/json",
           "Content-Type": "application/json",
         },
       });
-      console.log("Response headers:", response.headers, "Set-Cookie:", response.headers["set-cookie"]);
+      console.log(
+        "Response headers:",
+        response.headers,
+        "Set-Cookie:",
+        response.headers["set-cookie"]
+      );
       setMessages((prev) => [
         ...prev,
         { text: response.data.response, buttons: response.data.buttons },
       ]);
       // Update currentAction based on response or context
-      if (response.data.response.includes("Please send the ERC-20 token address")) {
+      if (
+        response.data.response.includes("Please send the ERC-20 token address")
+      ) {
         currentAction.current = "buy_custom_token";
-      } else if (response.data.response.includes("Please enter the amount of ETH")) {
+      } else if (
+        response.data.response.includes("Please enter the amount of ETH")
+      ) {
         currentAction.current = "buy_amount";
-      } else if (response.data.response.includes("Please send your private key")) {
+      } else if (
+        response.data.response.includes("Please send your private key")
+      ) {
         currentAction.current = "import_wallet";
       } else {
         currentAction.current = null;
@@ -175,11 +215,9 @@ function ChatWindow() {
             : null,
         });
       }
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      setMessages((prev) => [
-        ...prev,
-        { text: `Error: ${errorMessage}` },
-      ]);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      setMessages((prev) => [...prev, { text: `Error: ${errorMessage}` }]);
     } finally {
       setIsLoading(false);
     }
@@ -207,13 +245,17 @@ function ChatWindow() {
           >
             <pre className="whitespace-pre-wrap">{msg.text}</pre>
             {i === 0 && userFid && (
-              <p className="text-xs text-gray-500 mt-1">Your Farcaster ID: {userFid}</p>
+              <p className="text-xs text-gray-500 mt-1">
+                Your Farcaster ID: {userFid}
+              </p>
             )}
             {i === 0 && username && (
               <p className="text-xs text-gray-500">Logged in as: {username}</p>
             )}
             {i === 0 && displayName && (
-              <p className="text-xs text-gray-500">Logged in as: {displayName}</p>
+              <p className="text-xs text-gray-500">
+                Logged in as: {displayName}
+              </p>
             )}
             {msg.buttons && (
               <div className="mt-2 flex flex-wrap gap-2">
