@@ -38,7 +38,6 @@ A secure and user-friendly farcaster miniapp bot for trading ERC-20 tokens on Ba
 ## Technology Stack
 
 - **Language**: TypeScript
-- **Bot Framework**: [grammY](https://grammy.dev/)
 - **EVM Toolkit**: [viem](https://viem.sh/)
 - **Database**: SQLite via better-sqlite3
 - **Integrations**:
@@ -143,8 +142,8 @@ The database is initialized automatically on first run (`src/lib/database.ts`), 
 1. Clone the repository
 
 ```bash
-git clone https://github.com/quiknode-labs/qn-guide-examples.git
-cd qn-guide-examples/base/farcaster miniapp-trading-bot
+git clone https://github.com/0xedev/ForgeBot.git
+cd ForgeBot
 ```
 
 2. Install dependencies:
@@ -190,7 +189,6 @@ openssl rand -base64 32
 7. Fill in your environment variables in the `.env` file:
 
 ```bash
-farcaster miniapp_BOT_TOKEN=your_farcaster miniapp_bot_token
 QUICKNODE_RPC=your_quicknode_endpoint
 WALLET_ENCRYPTION_KEY=random_32_char_string
 DB_PATH=path_to_sqlite_db (default: ./db.sqlite)
