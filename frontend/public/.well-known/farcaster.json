@@ -6,13 +6,13 @@
   },
   "frame": {
     "version": "1",
-    "name": "forge-bot",
+    "name": "Forge Bot",
     "iconUrl": "https://forge-bot.vercel.app/icon.jpg",
     "homeUrl": "https://forge-bot.vercel.app",
     "imageUrl": "https://forge-bot.vercel.app/image.png",
-    "buttonTitle": "Start bot",
+    "buttonTitle": "start bot",
     "splashImageUrl": "https://forge-bot.vercel.app/image.png",
-    "splashBackgroundColor": "#ffffff",
+    "splashBackgroundColor": "#eeccff",
     "webhookUrl": "https://forge-bot.vercel.app/api/webhook"
   }
 }
